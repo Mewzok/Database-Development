@@ -1,19 +1,42 @@
 <?php
   // create short variable names
-  $tireqty = $_POST['tireqty'];
-  $oilqty = $_POST['oilqty'];
-  $sparkqty = $_POST['sparkqty'];
-  $find = $_POST['find'];
+  $frogclr = $_POST['frogcolor'];
+  $frogarm = $_POST['frogarm'];
+  $frogleg = $_POST['frogleg'];
 ?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bob's Auto Parts - Order Results</title>
+    <title>Frog Parts - Frog Created</title>
   </head>
   <body>
-    <h1>Bob's Auto Parts</h1>
-    <h2>Order Results</h2> 
+    <h1>Frog Parts</h1>
+    <h2>Frog Created</h2> 
     <?php
+    /* 
+      display frog base
+      check arm
+      display arm
+      check leg
+      display leg
+      change color
+    */
+
+    // display frog base
+    echo '<img src="fp_images.php?frogarm='.urlencode($frogarm).'&frogleg='.urlencode($frogleg).'" alt="Your frog" />';
+ /*
+    switch($frogarm) {
+      case "armfrog" :
+        echo '<img src="resources/armfrog.png"';
+        break;
+      case "armcrab" :
+        echo '<img src="resources/armcrab.png"';
+        break;
+      case "armdog" :
+        echo '<img src="resources/armdog.png"';
+        break;
+    } 
+
     // calculate total number of items selected
       $totalqty = 0;
       $totalqty = $tireqty + $oilqty + $sparkqty;

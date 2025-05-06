@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      Frog Parts home page
+      Author: Jonathan Kinney
+      Date Created:  05/1/2025
+      Date Modified: 05/06/2025
+
+      Filename: fp_form.html
+    -->
+    <meta charset="utf-8" />
+    <meta name="keywords" content="frog, parts, frogparts" />
+    <title>Frog Parts - Build Form</title>
+    <link href="fp_styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <form action="fp_buildfrog.php" method="post">
+    <table style="border: 0px;">
+    <tr style="background: #cccccc;">
+      <td style="width: 150px; text-align: center;">Part</td>
+      <td style="width: 15px; text-align: center;">Type</td>
+    </tr>
+    <tr>
+      <td>Frog Color</td>
+      <td><select name="frogcolor">
+        <option value="colorgreen">Green</option>
+        <option value="colorred">Red</option>
+        <option value="colorblue">Blue</option>
+      </select>
+    </td>
+    </tr>
+    <tr>
+      <td>Frog Arm</td>
+      <td><select name="frogarm">
+      <option value="armfrog">Frog</option>
+      <option value="armcrab">Crab</option>
+      <option value="armdog">Dog</option>
+     </select>
+    </td>
+    </tr>
+    <tr>
+      <td>Frog Leg</td>
+      <td><select name="frogleg">
+      <option value="legfrog">Frog</option>
+      <option value="legcrab">Crab</option>
+      <option value="legdog">Dog</option>
+     </select></td>
+    </tr>
+    <tr>
+     <td colspan="2" style="text-align: center;"><input type="submit" value="Build Frog" /></td>
+    </tr>
+    </table>
+    </form>
+  </body>
+</html>
