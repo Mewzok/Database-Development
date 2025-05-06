@@ -66,6 +66,10 @@ input[type="submit"]:hover {
     background: #3cab5f;
 }
 
+input[type="text"] {
+    width: 200px;
+}
+
 /* Results Page */
 .result-container {
     max-width: 600px;
