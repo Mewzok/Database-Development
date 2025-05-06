@@ -2,7 +2,87 @@
 /*
     Author: Jonathan Kinney
     Date Created: 05/01/2025
-    Date Modified: 05/01/2025
+    Date Modified: 05/06/2025
 
     Filename: styles01.css
 */
+
+/* Form Page */
+body {
+    font-family: "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e1f7e7;
+    color: #333;
+    padding: 2em;
+    margin: 0;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0.5em;
+    font-weight: bold;
+    text-align: center;
+    padding-right: 1em;
+}
+
+tr#heading {
+    background: #3b9e5c;
+}
+
+tr {
+    background: #c2e6cf;
+    font-weight: bold;
+}
+
+select, input[type="submit"] {
+    width: 100%;
+    padding: 0.4em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background: #49c272;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background: #3cab5f;
+}
+
+/* Results Page */
+.result-container {
+    max-width: 600px;
+    margin: 2em auto;
+    background: #fff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.result-container h1, .result-container h2 {
+    margin-top: 0;
+}
+
+.result-container img {
+    margin-top: 1em;
+    width: 100%;
+    max-width: 300px;
+}
