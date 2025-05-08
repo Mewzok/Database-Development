@@ -1,11 +1,13 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!--
-      Frog Parts home page
+      Frog Parts home/form page
       Author: Jonathan Kinney
       Date Created:  05/1/2025
-      Date Modified: 05/06/2025
+      Date Modified: 05/08/2025
 
       Filename: fp_form.html
     -->
@@ -15,6 +17,7 @@
     <link href="fp_styles.css" rel="stylesheet" />
   </head>
   <body>
+    <div>
     <form action="fp_buildfrog.php" method="post">
     <table style="border: 0px;">
     <tr id="heading">
@@ -54,19 +57,42 @@
     <tr>
      <td colspan="2"><input type="submit" value="Build Frog" /></td>
     </tr>
+    <tr>
+      <td colspan="2">OR</td>
+     </tr>
     </table>
     </form>
     <form>
       <table>
       <tr>
-        <td colspan="2"><input type="submit" value="Load Frog" /></td>
-      </tr>
-      <tr>
-        <td colspan="2"><select name="loadfrogname">
-  
+        <td id="loaddropdown" colspan="2"><select name="loadfrogname">
+          <?php
+            // load saved frogs
+            @$fp = fopen("frogs.txt", 'rb');
+
+            if($fp) {
+              flock($fp, LOCK_SH);
+
+              while (($parts = fgetcsv($fp)) !== false) {
+                if(count($parts) >= 4) {
+                  list($color, $arm, $leg, $name) = $parts;
+                  echo "<option value=\"{$name}\">{$name}</option>";
+                }
+              }
+
+              flock($fp, LOCK_UN);
+              fclose($fp);
+            } else {
+              // no frog load
+            }
+          ?>
         </select></td>
       </tr>
-      </table>
+      <tr>
+        <td id="loadbutton" colspan="2"><input type="submit" value="Load Frog" /></td>
+      </tr>
     </form>
+    </table>
+    </div>
   </body>
 </html>

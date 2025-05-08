@@ -8,14 +8,14 @@
 
   // handle saving
   if(isset($_POST['savefrog'])) {
-    $outputstring = $frogcolor."\t".$frogarm."\t".$frogleg."\t"."$frogname"."\t";
 
     // open file for appending
     @$fp = fopen("frogs.txt", 'ab');
 
     if($fp) {
       flock($fp, LOCK_EX);
-      fwrite($fp, $outputstring, strlen($outputstring));
+      fputcsv($fp, [$frogcolor, $frogarm, $frogleg, $frogname]);
+
       flock($fp, LOCK_UN);
       fclose($fp);
       $saved = true;
@@ -31,7 +31,7 @@
     <link href="fp_styles.css" rel="stylesheet" />
   </head>
   <body>
-      <a href="fp_form.html" class="back-link">← Back to Frog Builder</a>
+      <a href="fp_form.php" class="back-link">← Back to Frog Builder</a>
 
       <div class="result-container">
       <h1>Frog Parts</h1>
@@ -42,7 +42,6 @@
       echo '<img src="fp_images.php?frogcolor='.urlencode($frogcolor).'&frogarm='.urlencode($frogarm).
       '&frogleg='.urlencode($frogleg).'&frogname='.urlencode($frogname).'" alt="Your frog" />';
       ?>
-    </div>
 
     <form action="fp_buildfrog.php" method="post">
       <input type="hidden" name="frogcolor" value="<?php echo htmlspecialchars($frogcolor); ?>">
@@ -56,5 +55,6 @@
         <input type="submit" name="savefrog" value="Save Frog" />
       <?php endif; ?>
     </form>
+    </div>
   </body>
 </html>
