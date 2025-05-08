@@ -54,9 +54,10 @@
       <input type="hidden" name="frogname" value="<?php echo htmlspecialchars($name); ?>">
 
       <?php
+      // check if frog has been saved to disable button
       if($saved) {
         echo "<button disabled style=\"background-color: #bbb;\">Frog Saved</button>";
-      } else if(!$isLoaded) {
+      } else if(!$isLoaded) { // only display button if new frog, not loaded one
         echo "<input type=\"submit\" name=\"savefrog\" value=\"Save Frog\" />";
       }
       ?>
