@@ -17,6 +17,21 @@
     <link href="fp_styles.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- put all saved frog names in an array to check for already taken name -->
+    <script>
+        const allFrogNames = <?php
+          $names = [];
+          if (($fp = fopen("frogs.txt", "r")) !== false) {
+            while (($tempFrogArray = fgetcsv($fp)) !== false) {
+              if (isset($tempFrogArray[3])) {
+                $names[] = trim($tempFrogArray[3]);
+              }
+            }
+            fclose($fp);
+          }
+          echo json_encode($names);
+        ?>;
+      </script>
     <div>
     <form action="fp_buildfrog.php" method="post">
     <table style="border: 0px;">
@@ -94,5 +109,20 @@
     </form>
     </table>
     </div>
+      <!-- check for already taken name -->
+      <script>
+        document.querySelector('form[action="fp_buildfrog.php"]').addEventListener('submit', function(e) {
+          const nameInput = document.querySelector('input[name="frogname"]');
+          const enteredName = nameInput.value.trim();
+
+          if(allFrogNames.includes(enteredName)) {
+            e.preventDefault(); // stops submit
+            alert('Frog name "' + enteredName + '" is taken.');
+            nameInput.style.border = '2px solid red';
+          } else {
+            nameInput.style.border = '';
+          }
+        });
+      </script>
   </body>
 </html>

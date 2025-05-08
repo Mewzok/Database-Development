@@ -10,7 +10,7 @@
   if(isset($_POST['savefrog'])) {
 
     // open file for appending
-    @$fp = fopen("frogs.txt", 'ab');
+    @$fp = fopen("frogs.txt", 'a');
 
     if($fp) {
       flock($fp, LOCK_EX);
