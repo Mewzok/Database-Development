@@ -43,7 +43,7 @@
       '&frogleg='.urlencode($frogleg).'&frogname='.urlencode($frogname).'" alt="Your frog" />';
       ?>
 
-    <form action="fp_buildfrog.php" method="post">
+    <form id="buildform" action="fp_buildfrog.php" method="post">
       <input type="hidden" name="frogcolor" value="<?php echo htmlspecialchars($frogcolor); ?>">
       <input type="hidden" name="frogarm" value="<?php echo htmlspecialchars($frogarm); ?>">
       <input type="hidden" name="frogleg" value="<?php echo htmlspecialchars($frogleg); ?>">

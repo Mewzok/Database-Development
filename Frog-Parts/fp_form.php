@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,23 +15,25 @@
     <link href="fp_styles.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- put all saved frog names in an array to check for already taken name -->
-    <script>
-        const allFrogNames = <?php
-          $names = [];
-          if (file_exists("frogs.txt") && ($fp = fopen("frogs.txt", "r")) !== false) {
-            while (($tempFrogArray = fgetcsv($fp)) !== false) {
-              if (isset($tempFrogArray[3])) {
-                $names[] = trim($tempFrogArray[3]);
-              }
+    <!-- put all saved frog names in an array to check for already taken name ----------->
+     <?php
+        $frogList = [];
+        if(($fp = fopen("frogs.txt", "r")) !== false) {
+          while(($curLine = fgetcsv($fp)) !== false) {
+            if(count($curLine) >= 4) {
+              $frogList[] = $curLine;
             }
-            fclose($fp);
           }
-          echo json_encode($names);
-        ?>;
-      </script>
+          fclose($fp);
+        }
+        foreach($frogList as $x) {
+          echo implode(", ", $x)."<br>";
+        }
+     ?>
+    <!-- end of array of names creation -------------------------------------------------->
+
     <div>
-    <form action="fp_buildfrog.php" method="post">
+    <form id="frogForm" action="fp_buildfrog.php" method="post">
     <table style="border: 0px;">
     <tr id="heading">
       <td>Part</td>
@@ -41,7 +41,7 @@
     </tr>
     <tr>
       <td>Frog Color</td>
-      <td><select name="frogcolor">
+      <td><select name="frogcolor" id="frogcolor">
         <option value="green">Green</option>
         <option value="red">Red</option>
         <option value="blue">Blue</option>
@@ -50,7 +50,7 @@
     </tr>
     <tr>
       <td>Frog Arm</td>
-      <td><select name="frogarm">
+      <td><select name="frogarm" id="frogarm">
       <option value="armfrog">Frog</option>
       <option value="armcrab">Crab</option>
       <option value="armdog">Dog</option>
@@ -59,7 +59,7 @@
     </tr>
     <tr>
       <td>Frog Leg</td>
-      <td><select name="frogleg">
+      <td><select name="frogleg" id="frogleg">
       <option value="legfrog">Frog</option>
       <option value="legcrab">Crab</option>
       <option value="legdog">Dog</option>
@@ -67,7 +67,7 @@
     </tr>
     <tr>
       <td>Frog Name</td>
-      <td><input type="text" name="frogname" /></td>
+      <td><input type="text" name="frogname" id="frogname"/></td>
     </tr>
     <tr>
      <td colspan="2"><input type="submit" value="Build Frog" /></td>
@@ -77,65 +77,56 @@
      </tr>
     </table>
     </form>
-    <form>
-      <table>
+
+    <!-- handle loading ------------------------------------------------------------->
+    <form id="loadForm">
+    <table>
+      <!-- load dropdown -->
       <tr>
-        <?php 
-          // load saved frogs to dropdown
-          @$fp = fopen("frogs.txt", 'rb');
-          $hasSavedFrogs = false;
-          $frogsLoaded = '';
-
-          if($fp) {
-            flock($fp, LOCK_SH);
-
-            while (($parts = fgetcsv($fp)) !== false) {
-              if(count($parts) >= 4) {
-                list($color, $arm, $leg, $name) = $parts;
-                $frogsLoaded .= "<option value=\"{$name}\">{$name}</option>\n";
-                $hasSavedFrogs = true;
-              }
-            }
-            flock($fp, LOCK_UN);
-            fclose($fp);
-          }
-        ?>
-        <td id="loaddropdown" colspan="2"><select name="loadfrogname" <?php
-          if(!$hasSavedFrogs) echo 'disabled'; ?>>
-          <?php if($hasSavedFrogs) {
-            echo $frogsLoaded;
-          } else {
-            echo '<option>No saved frogs.</option>';
-          }
-          ?>
-        </select></td>
+        <td colspan="2">
+          <select name="loadfrogname" id="loadDropdown" 
+            <?php if(count($frogList) === 0) echo 'disabled'; ?>>
+            <option value="">-- Select Frog --</option>
+            <?php foreach ($frogList as $frog): ?>
+              <option value="<?php echo htmlspecialchars(json_encode($frog)); ?>">
+                <?php echo htmlspecialchars($frog[3]); ?>
+            </option>
+            <?php endforeach; ?>
+          </select>
+        </td>
       </tr>
+      <!-- load button -->
       <tr>
-        <td id="loadbutton" colspan="2"><input type="submit" value="Load Frog" <?php 
-        if(!$hasSavedFrogs) echo 'disabled' ?> />
+        <td colspan="2">
+          <input id="loadButton" type="submit" name="loadFrog" value="Load Frog" <?php 
+            if(count($frogList) === 0) echo 'disabled' ?> />
         </td>
       </tr>
     </table>
     </form>
     </div>
-      <!-- check for already taken name -->
-      <script>
-        document.querySelector('form[action="fp_buildfrog.php"]').addEventListener('submit', function(e) {
-          const nameInput = document.querySelector('input[name="frogname"]');
-          const enteredName = nameInput.value.trim();
+    <!-- check for already taken name ----------------------------------------------------------------->
+    <script>
+      const loadDropdown = document.getElementById("loadDropdown");
+      const loadForm = document.getElementById("loadForm");
+      const frogForm = document.getElementById("frogForm");
 
-          if(allFrogNames.includes(enteredName)) {
-            e.preventDefault(); // stops submit
-            alert('Frog name "' + enteredName + '" is taken.');
-            nameInput.style.border = '2px solid red';
-          } else if(enteredName === '') {
-            e.preventDefault(); // stops submit
-            alert('Frog needs a name.');
-            nameInput.style.border = '2px solid red';
-          } else {
-            nameInput.style.border = '';
-          }
-        });
-      </script>
+      loadForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const selected = loadDropdown.value;
+        if(!selected) return;
+
+        const frog = JSON.parse(selected);
+
+        document.querySelector('select[name="frogcolor"]').value = frog[0];
+        document.querySelector('select[name="frogarm"]').value = frog[1];
+        document.querySelector('select[name="frogleg"]').value = frog[2];
+        document.querySelector('input[name="frogname"]').value = frog[3];
+
+        frogForm.submit();
+      });
+    </script>
+    <!-- end of checking for already taken name ------------------------------------------------------->
   </body>
 </html>
