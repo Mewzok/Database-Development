@@ -105,11 +105,12 @@
     </table>
     </form>
     </div>
-    <!-- check for already taken name ----------------------------------------------------------------->
+    <!-- load button ----------------------------------------------------------->
     <script>
       const loadDropdown = document.getElementById("loadDropdown");
       const loadForm = document.getElementById("loadForm");
       const frogForm = document.getElementById("frogForm");
+      const loadedInput = document.createElement("input");
 
       loadForm.addEventListener("submit", function(e) {
         e.preventDefault();
@@ -124,9 +125,29 @@
         document.querySelector('select[name="frogleg"]').value = frog[2];
         document.querySelector('input[name="frogname"]').value = frog[3];
 
+
+        loadedInput.type = "hidden";
+        loadedInput.name = "loaded";
+        loadedInput.value = "true";
+        frogForm.appendChild(loadedInput);
         frogForm.submit();
       });
     </script>
-    <!-- end of checking for already taken name ------------------------------------------------------->
+    <!-- load button -------------------------------------------------->
+    <!-- check for duplicate name ------------------------------------->
+      <script>
+        document.querySelector('form[action="fp_buildfrog.php"]').addEventListener('submit', function(e) {
+          const existingNames = <?php echo json_encode(array_column($frogList, 3)); ?>;
+          const nameInput = document.querySelector('input[name="frogname"]');
+          const enteredName = nameInput.value.trim();
+
+          if(existingNames.includes(enteredName)) {
+            e.preventDefault();
+            alert("Frog name already taken.");
+            nameInput.style.border = "2px solid red";
+          }
+        })
+      </script>
+    <!-- end of check for duplicate name ------------------------------>
   </body>
 </html>

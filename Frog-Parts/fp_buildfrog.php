@@ -1,20 +1,24 @@
 <?php
-  // create short variable names
-  $frogcolor = $_POST['frogcolor'];
-  $frogarm = $_POST['frogarm'];
-  $frogleg = $_POST['frogleg'];
-  $frogname = $_POST['frogname'];
-  $saved = false;
+  $color = $_POST['frogcolor'] ?? '';
+  $arm = $_POST['frogarm'] ?? '';
+  $leg = $_POST['frogleg'] ?? '';
+  $name = trim($_POST['frogname']) ?? '';
+  $saved = isset($_POST['savefrog']);
+  $isLoaded = isset($_POST['loaded']);
+
+  // cancel if no name
+  if($name === '') {
+    die("Frog has no name.");
+  }
 
   // handle saving
-  if(isset($_POST['savefrog'])) {
-
+  if($saved) {
     // open file for appending
     @$fp = fopen("frogs.txt", 'a');
 
     if($fp) {
       flock($fp, LOCK_EX);
-      fputcsv($fp, [$frogcolor, $frogarm, $frogleg, $frogname]);
+      fputcsv($fp, [$color, $arm, $leg, $name]);
 
       flock($fp, LOCK_UN);
       fclose($fp);
@@ -36,24 +40,26 @@
       <div class="result-container">
       <h1>Frog Parts</h1>
       <h2>Your frog</h2>
-      <h3><?php echo $frogname;?></h3>
+      <h3><?php echo $name;?></h3>
       <?php
       // display frog
-      echo '<img src="fp_images.php?frogcolor='.urlencode($frogcolor).'&frogarm='.urlencode($frogarm).
-      '&frogleg='.urlencode($frogleg).'&frogname='.urlencode($frogname).'" alt="Your frog" />';
+      echo '<img src="fp_images.php?frogcolor='.urlencode($color).'&frogarm='.urlencode($arm).
+      '&frogleg='.urlencode($leg).'&frogname='.urlencode($name).'" alt="Your frog" />';
       ?>
 
     <form id="buildform" action="fp_buildfrog.php" method="post">
-      <input type="hidden" name="frogcolor" value="<?php echo htmlspecialchars($frogcolor); ?>">
-      <input type="hidden" name="frogarm" value="<?php echo htmlspecialchars($frogarm); ?>">
-      <input type="hidden" name="frogleg" value="<?php echo htmlspecialchars($frogleg); ?>">
-      <input type="hidden" name="frogname" value="<?php echo htmlspecialchars($frogname); ?>">
+      <input type="hidden" name="frogcolor" value="<?php echo htmlspecialchars($color); ?>">
+      <input type="hidden" name="frogarm" value="<?php echo htmlspecialchars($arm); ?>">
+      <input type="hidden" name="frogleg" value="<?php echo htmlspecialchars($leg); ?>">
+      <input type="hidden" name="frogname" value="<?php echo htmlspecialchars($name); ?>">
 
-      <?php if($saved): ?>
-        <button disabled style="background-color: #bbb;">Frog Saved</button>
-      <?php else: ?>
-        <input type="submit" name="savefrog" value="Save Frog" />
-      <?php endif; ?>
+      <?php
+      if($saved) {
+        echo "<button disabled style=\"background-color: #bbb;\">Frog Saved</button>";
+      } else if(!$isLoaded) {
+        echo "<input type=\"submit\" name=\"savefrog\" value=\"Save Frog\" />";
+      }
+      ?>
     </form>
     </div>
   </body>
