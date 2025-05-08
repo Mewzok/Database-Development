@@ -21,7 +21,7 @@
     <script>
         const allFrogNames = <?php
           $names = [];
-          if (($fp = fopen("frogs.txt", "r")) !== false) {
+          if (file_exists("frogs.txt") && ($fp = fopen("frogs.txt", "r")) !== false) {
             while (($tempFrogArray = fgetcsv($fp)) !== false) {
               if (isset($tempFrogArray[3])) {
                 $names[] = trim($tempFrogArray[3]);
@@ -80,34 +80,43 @@
     <form>
       <table>
       <tr>
-        <td id="loaddropdown" colspan="2"><select name="loadfrogname">
-          <?php
-            // load saved frogs
-            @$fp = fopen("frogs.txt", 'rb');
+        <?php 
+          // load saved frogs to dropdown
+          @$fp = fopen("frogs.txt", 'rb');
+          $hasSavedFrogs = false;
+          $frogsLoaded = '';
 
-            if($fp) {
-              flock($fp, LOCK_SH);
+          if($fp) {
+            flock($fp, LOCK_SH);
 
-              while (($parts = fgetcsv($fp)) !== false) {
-                if(count($parts) >= 4) {
-                  list($color, $arm, $leg, $name) = $parts;
-                  echo "<option value=\"{$name}\">{$name}</option>";
-                }
+            while (($parts = fgetcsv($fp)) !== false) {
+              if(count($parts) >= 4) {
+                list($color, $arm, $leg, $name) = $parts;
+                $frogsLoaded .= "<option value=\"{$name}\">{$name}</option>\n";
+                $hasSavedFrogs = true;
               }
-
-              flock($fp, LOCK_UN);
-              fclose($fp);
-            } else {
-              // no frog load
             }
+            flock($fp, LOCK_UN);
+            fclose($fp);
+          }
+        ?>
+        <td id="loaddropdown" colspan="2"><select name="loadfrogname" <?php
+          if(!$hasSavedFrogs) echo 'disabled'; ?>>
+          <?php if($hasSavedFrogs) {
+            echo $frogsLoaded;
+          } else {
+            echo '<option>No saved frogs.</option>';
+          }
           ?>
         </select></td>
       </tr>
       <tr>
-        <td id="loadbutton" colspan="2"><input type="submit" value="Load Frog" /></td>
+        <td id="loadbutton" colspan="2"><input type="submit" value="Load Frog" <?php 
+        if(!$hasSavedFrogs) echo 'disabled' ?> />
+        </td>
       </tr>
-    </form>
     </table>
+    </form>
     </div>
       <!-- check for already taken name -->
       <script>
@@ -118,6 +127,10 @@
           if(allFrogNames.includes(enteredName)) {
             e.preventDefault(); // stops submit
             alert('Frog name "' + enteredName + '" is taken.');
+            nameInput.style.border = '2px solid red';
+          } else if(enteredName === '') {
+            e.preventDefault(); // stops submit
+            alert('Frog needs a name.');
             nameInput.style.border = '2px solid red';
           } else {
             nameInput.style.border = '';

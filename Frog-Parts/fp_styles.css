@@ -77,6 +77,11 @@ input[type="text"] {
     width: 200px;
 }
 
+input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 button {
     width: 100%;
     padding: 0.4em;
