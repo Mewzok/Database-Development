@@ -26,9 +26,6 @@
           }
           fclose($fp);
         }
-        foreach($frogList as $x) {
-          echo implode(", ", $x)."<br>";
-        }
      ?>
     <!-- end of array of names creation -------------------------------------------------->
 
