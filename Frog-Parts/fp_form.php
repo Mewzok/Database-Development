@@ -18,7 +18,7 @@
     <!-- put all saved frog names in an array to check for already taken name ----------->
      <?php
         $frogList = [];
-        if(($fp = fopen("frogs.txt", "r")) !== false) {
+        if(file_exists("frogs.txt") && ($fp = fopen("frogs.txt", "r")) !== false) {
           while(($curLine = fgetcsv($fp)) !== false) {
             if(count($curLine) >= 4) {
               $frogList[] = $curLine;
