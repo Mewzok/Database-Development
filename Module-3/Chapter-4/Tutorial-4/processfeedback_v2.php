@@ -16,6 +16,23 @@ $mailcontent = "Customer name: ".str_replace("\r\n", "", $name)."\n".
 
 $fromaddress = "From: webserver@example.com";
 
+if(preg_match('/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/', $email) === 0) {
+  echo "<p>That is not a valid email address.</p>".
+    "<p>Please return to the previous page and try again.</p>";
+    exit;
+}
+$toaddress = 'feedback@example.com'; // the default value
+if(preg_match('/shop|customer service|retail/', $feedback)) {
+  $toaddress = 'retail@example.com';
+} else if(preg_match('/deliver|fulfill/', $feedback)) {
+  $toaddress = 'fulfillment@example.com';
+} else if (preg_match('/bill|account/', $feedback)) {
+  $toaddress = 'accounts@example.com';
+}
+if(preg_match('/bigcustomer\.com/', $email)) {
+  $toaddress = 'bob@example.com';
+}
+
 //invoke mail() function to send mail
 mail($toaddress, $subject, $mailcontent, $fromaddress);
 
