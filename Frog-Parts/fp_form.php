@@ -76,6 +76,7 @@
     </form>
 
     <!-- handle loading ------------------------------------------------------------->
+     <?php if(count($frogList) > 0) usort($frogList, 'compareName'); ?>
     <form id="loadForm">
     <table>
       <!-- load dropdown -->
@@ -148,3 +149,15 @@
     <!-- end of check for duplicate name ------------------------------>
   </body>
 </html>
+
+<?php 
+  function compareName($x, $y) {
+    if($x[3] == $y[3]) {
+      return 0;
+    } else if($x[3] < $y[3]) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+?>
