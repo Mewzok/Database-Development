@@ -34,7 +34,7 @@
     <body>
         <div class="process-feedback-div">
             <h1>Frog Feedback Submitted</h1>
-            <p>🐸 Your feedback has been promptly noted and duly ignored 🐸</p>
+            <p>🐸 Your feedback has been duly noted and promptly ignored 🐸</p>
             <a href="fp_form.php" id="homeButton">Back to Home Page</a>
         </div>
     </body>
