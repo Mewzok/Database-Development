@@ -2,7 +2,7 @@
 /*
     Author: Jonathan Kinney
     Date Created: 05/01/2025
-    Date Modified: 05/06/2025
+    Date Modified: 05/13/2025
 
     Filename: styles01.css
 */
@@ -88,6 +88,27 @@ button {
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.frog-feedback-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #7ed957;
+    color: white;
+    padding: 0.8em 1em;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 1000;
+}
+
+.frog-feedback-button:hover {
+    background-color: #65b743;
+    transform: scale(1.05);
 }
 
 /* Results Page */
