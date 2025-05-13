@@ -194,3 +194,28 @@ button {
     font-family: 'Papyrus', fantasy, cursive;
     color: #3d6b3d;
 }
+
+/* Process Feedback Page */
+.process-feedback-div {
+    background-color: #f0ffe0;
+    border: 3px dotted #7ec850;
+    border-radius: 20px;
+    padding: 25px;
+    width: 600px;
+    margin: 40px auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+    font-family: "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.process-feedback-div h1 {
+    color: #3d6b3d;
+    font-family: 'Papyrus', fantasy, cursive;
+    margin-bottom: 10px;
+}
+
+.process-feedback-div p {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.6;
+}
