@@ -2,10 +2,41 @@
 /*
     Author: Jonathan Kinney
     Date Created: 05/01/2025
-    Date Modified: 05/13/2025
+    Date Modified: 05/15/2025
 
     Filename: styles01.css
 */
+
+/* Header Styles */
+.frog-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+    background: linear-gradient(to right, #b2f2bb, #d3f9d8);
+    box-shadow: 0 2px 8px rgba(0, 50, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+#headerLink {
+    text-decoration: none;
+    display: block;
+}
+
+#frogLogo {
+    height: 70px;
+    width: auto;
+    border-radius: 10px;
+}
+
+#frogTitle {
+    font-family: 'Papyrus', fantasy, cursive;
+    font-size: 2.5em;
+    color: #2f5f2f;
+    margin: 0;
+    text-shadow: 1px 1px 0 #d6f5d6;
+}
 
 /* Form Page */
 body {
