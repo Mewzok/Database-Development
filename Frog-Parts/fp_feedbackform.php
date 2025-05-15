@@ -14,6 +14,7 @@
         <link href="fp_styles.css" rel="stylesheet" />
     </head>
     <body>
+        <?php include('fp_header.php'); ?>
         <div class="feedback-div">
             <h1>🐸 Frog Feedback 🐸</h1>
 
@@ -31,5 +32,6 @@
             <p><input type="submit" value="Send Feedback" /></p>
             </form>
         </div>
+        <?php include('fp_footer.php'); ?>
     </body>
 </html>

@@ -165,7 +165,7 @@ button {
 }
 
 .back-link {
-    position: absolute;
+    position: relative;
     top: 1em;
     left: 1em;
     text-decoration: none;

@@ -28,6 +28,7 @@
         <link href="fp_styles.css" rel="stylesheet" />
     </head>
     <body class="feedback-search-body">
+        <?php include('fp_header.php'); ?>
         <form action="" method="post">
             <div class="feedback-search-div">
                 <p><strong>Enter search term:</strong><br />
@@ -44,5 +45,6 @@
         <?php elseif($_SERVER["REQUEST_METHOD"] === "POST"): ?>
             <p id="searchNotFound">No matches found.</p>
         <?php endif; ?>
+        <?php include('fp_footer.php'); ?>
     </body>
 </html>

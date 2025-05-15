@@ -14,8 +14,8 @@
     <title>Frog Parts - Build Form</title>
     <link href="fp_styles.css" rel="stylesheet" />
   </head>
-  <?php include('header.php'); ?>
   <body>
+  <?php include('fp_header.php'); ?>
     <!-- put all saved frog names in an array to check for already taken name ----------->
      <?php
         $frogList = [];
@@ -148,9 +148,9 @@
         })
       </script>
     <!-- end of check for duplicate name ------------------------------>
-     <a href="fp_feedbackform.html" class="frog-feedback-button">🐸 Frog Feedback</a>
+     <a href="fp_feedbackform.php" class="frog-feedback-button">🐸 Frog Feedback</a>
+     <?php include('fp_footer.php'); ?>
   </body>
-  <?php include('footer.php'); ?>
 </html>
 
 <?php 

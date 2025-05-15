@@ -35,6 +35,7 @@
     <link href="fp_styles.css" rel="stylesheet" />
   </head>
   <body>
+    <?php include('fp_header.php'); ?>
       <a href="fp_form.php" class="back-link">← Back to Frog Builder</a>
 
       <div class="result-container">
@@ -63,5 +64,6 @@
       ?>
     </form>
     </div>
+    <?php include('fp_footer.php'); ?>
   </body>
 </html>
