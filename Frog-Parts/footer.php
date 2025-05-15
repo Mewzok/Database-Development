@@ -1,8 +1,7 @@
-  <!-- page footer -->
-  <footer>
-      <p>Frog Parts<br />
-      Please do not contact me.
-  </footer>
-</body>
-</html>
+<!-- page footer -->
+<footer class="frog-footer">
+    <p>Frog Parts<br />
+    Please do not contact me.</p>
+</footer>
+
 

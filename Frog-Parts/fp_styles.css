@@ -333,3 +333,16 @@ button {
     font-family: "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 2px 2px 8px rgba(150, 0, 0, 0.1);
 }
+
+/* Footer Styles */
+.frog-footer {
+    background-color: #e6ffe6;
+    color: #3d6b3d;
+    border-top: 2px solid #a2d149;
+    padding: 1em;
+    text-align: center;
+    font-family: "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9em;
+    margin-top: 3em;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
