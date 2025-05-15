@@ -1,3 +1,4 @@
+<?php include('fp_functions.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +6,7 @@
       Frog Parts home/form page
       Author: Jonathan Kinney
       Date Created:  05/1/2025
-      Date Modified: 05/13/2025
+      Date Modified: 05/15/2025
 
       Filename: fp_form.html
     -->
@@ -77,7 +78,9 @@
     </form>
 
     <!-- handle loading ------------------------------------------------------------->
-     <?php if(count($frogList) > 0) usort($frogList, 'compareName'); ?>
+     <?php if(count($frogList) > 0) usort($frogList, '        $armimg = imagecreatefrompng("resources/{$arm}{$color}.png");
+        imagesavealpha($armimg, true);
+        imagecopy($basefrog, $armimg, 0, 0, 0, 0, imagesx($armimg), imagesy($armimg));'); ?>
     <form id="loadForm">
     <table>
       <!-- load dropdown -->
@@ -152,15 +155,3 @@
      <?php include('fp_footer.php'); ?>
   </body>
 </html>
-
-<?php 
-  function compareName($x, $y) {
-    if($x[3] == $y[3]) {
-      return 0;
-    } else if($x[3] < $y[3]) {
-      return -1;
-    } else {
-      return 1;
-    }
-  }
-?>
