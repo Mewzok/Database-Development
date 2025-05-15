@@ -18,17 +18,7 @@
   <body>
   <?php include('fp_header.php'); ?>
     <!-- put all saved frog names in an array to check for already taken name ----------->
-     <?php
-        $frogList = [];
-        if(file_exists("frogs.txt") && ($fp = fopen("frogs.txt", "r")) !== false) {
-          while(($curLine = fgetcsv($fp)) !== false) {
-            if(count($curLine) >= 4) {
-              $frogList[] = $curLine;
-            }
-          }
-          fclose($fp);
-        }
-     ?>
+     <?php $frogList = loadFrogList("frogs.txt"); ?>
     <!-- end of array of names creation -------------------------------------------------->
 
     <div>
@@ -78,9 +68,7 @@
     </form>
 
     <!-- handle loading ------------------------------------------------------------->
-     <?php if(count($frogList) > 0) usort($frogList, '        $armimg = imagecreatefrompng("resources/{$arm}{$color}.png");
-        imagesavealpha($armimg, true);
-        imagecopy($basefrog, $armimg, 0, 0, 0, 0, imagesx($armimg), imagesy($armimg));'); ?>
+     <?php if(count($frogList) > 0) usort($frogList, 'compareName'); ?>
     <form id="loadForm">
     <table>
       <!-- load dropdown -->
