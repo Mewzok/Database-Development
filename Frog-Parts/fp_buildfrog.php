@@ -1,4 +1,8 @@
 <?php
+  require("fp_page.php");
+
+  $buildPage = new Page("Frog Parts - Build");
+
   $color = $_POST['frogcolor'] ?? '';
   $arm = $_POST['frogarm'] ?? '';
   $leg = $_POST['frogleg'] ?? '';
@@ -31,11 +35,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Frog Parts - Frog Created</title>
-    <link href="fp_styles.css" rel="stylesheet" />
+    <?php
+      $buildPage->DisplayTitle();
+      $buildPage->DisplayStyles();
+    ?>
   </head>
   <body>
-    <?php include('fp_header.php'); ?>
+    <?php $buildPage->DisplayHeader(); ?>
       <a href="fp_form.php" class="back-link">← Back to Frog Builder</a>
 
       <div class="result-container">
@@ -64,6 +70,6 @@
       ?>
     </form>
     </div>
-    <?php include('fp_footer.php'); ?>
+    <?php $buildPage->DisplayFooter(); ?>
   </body>
 </html>

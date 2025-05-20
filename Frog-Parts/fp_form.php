@@ -1,4 +1,9 @@
-<?php include('fp_functions.php'); ?>
+<?php 
+  include('fp_functions.php'); 
+  require("fp_page.php");  
+
+  $formPage = new Page();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,17 +11,19 @@
       Frog Parts home/form page
       Author: Jonathan Kinney
       Date Created:  05/1/2025
-      Date Modified: 05/15/2025
+      Date Modified: 05/20/2025
 
       Filename: fp_form.html
     -->
     <meta charset="utf-8" />
-    <meta name="keywords" content="frog, parts, frogparts" />
-    <title>Frog Parts - Build Form</title>
-    <link href="fp_styles.css" rel="stylesheet" />
+    <?php 
+      $formPage->DisplayKeywords();
+      $formPage->DisplayTitle();
+      $formPage->DisplayStyles();
+    ?>
   </head>
   <body>
-  <?php include('fp_header.php'); ?>
+  <?php $formPage->DisplayHeader(); ?>
     <!-- put all saved frog names in an array to check for already taken name ----------->
      <?php $frogList = loadFrogList("frogs.txt"); ?>
     <!-- end of array of names creation -------------------------------------------------->
@@ -140,6 +147,6 @@
       </script>
     <!-- end of check for duplicate name ------------------------------>
      <a href="fp_feedbackform.php" class="frog-feedback-button">🐸 Frog Feedback</a>
-     <?php include('fp_footer.php'); ?>
+     <?php $formPage->DisplayFooter() ?>
   </body>
 </html>
