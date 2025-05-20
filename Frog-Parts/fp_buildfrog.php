@@ -1,5 +1,6 @@
 <?php
   require("fp_page.php");
+  require_once("fp_fileexceptions.php");
 
   $buildPage = new Page("Frog Parts - Build");
 
@@ -18,17 +19,30 @@
   // handle saving
   if($saved) {
     // open file for appending
-    @$fp = fopen("frogs.txt", 'a');
+    try {
+      $fp = @fopen("frogs.txt", 'a');
 
-    if($fp) {
-      flock($fp, LOCK_EX);
-      fputcsv($fp, [$color, $arm, $leg, $name]);
+      if(!($fp)) {
+        throw new FileOpenException();
+      }
+
+      if(!flock($fp, LOCK_EX)) {
+        throw new FileLockException();
+      }
+
+      if(!fputcsv($fp, [$color, $arm, $leg, $name])) {
+        throw new FileWriteException();
+      }
 
       flock($fp, LOCK_UN);
       fclose($fp);
       $saved = true;
-    } else {
-      $error = "Frog could not be saved.";
+    } catch(FileOpenException $foe) {
+      echo $foe->__toString();
+    } catch(FileLockException $fle) {
+      echo $fle->__toString();
+    } catch(FileWriteException $fwe) {
+      echo $fwe->__toString();
     }
   }
 ?>
