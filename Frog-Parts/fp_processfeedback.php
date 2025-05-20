@@ -3,6 +3,7 @@
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $feedback = trim($_POST['feedback']);
+    $frogName = trim($_POST['frogname']);
 
     // check for valid email
     if(preg_match('/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/', $email) === 0) {
@@ -16,7 +17,7 @@
 
     if($fp) {
         flock($fp, LOCK_EX);
-        fputcsv($fp, [$name, $email, $feedback]);
+        fputcsv($fp, [$name, $email, $feedback, $frogName]);
 
         flock($fp, LOCK_UN);
         fclose($fp);

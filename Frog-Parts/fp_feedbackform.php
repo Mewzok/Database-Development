@@ -51,6 +51,8 @@
         <p><strong>Your feedback:</strong><br />
         <textarea name="feedback" rows="8" cols="40"></textarea></p>
 
+        <input type="hidden" name="frogname" value="<?php echo htmlspecialchars($name); ?>">
+
         <p><input type="submit" value="Send Feedback" /></p>
         </form>
       </div>
