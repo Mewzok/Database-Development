@@ -2,6 +2,11 @@
   require("fp_page.php");
 
   $feedbackPage = new Page("Frog Parts - Feedback");
+
+  $name = $_POST['frogname'] ?? '';
+  $color = $_POST['frogcolor'] ?? '';
+  $arm = $_POST['frogarm'] ?? '';
+  $leg = $_POST['frogleg'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +30,15 @@
       <?php $feedbackPage->DisplayHeader(); ?>
       <div class="feedback-div">
         <h1>🐸 Frog Feedback 🐸</h1>
+
+        <?php
+          // display frog 
+          echo '<div id="feedbackImage">';
+          echo '<img src="fp_images.php?frogcolor='.urlencode($color).'&frogarm='.urlencode($arm).
+          '&frogleg='.urlencode($leg).'&frogname='.urlencode($name).'" alt="Your frog" />';
+          echo '<p>'.htmlspecialchars($name).'</p>';
+          echo '</div>';
+        ?>
 
         <form action="fp_processfeedback.php" method="post">
 

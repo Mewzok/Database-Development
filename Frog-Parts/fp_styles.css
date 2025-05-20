@@ -2,9 +2,9 @@
 /*
     Author: Jonathan Kinney
     Date Created: 05/01/2025
-    Date Modified: 05/15/2025
+    Date Modified: 05/20/2025
 
-    Filename: styles01.css
+    Filename: fp_styles.css
 */
 
 /* Header Styles */
@@ -123,6 +123,7 @@ button {
 
 .frog-feedback-button {
     position: fixed;
+    width: auto;
     bottom: 20px;
     right: 20px;
     background-color: #7ed957;
@@ -140,6 +141,7 @@ button {
 .frog-feedback-button:hover {
     background-color: #65b743;
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 /* Results Page */
@@ -224,6 +226,24 @@ button {
     text-align: center;
     font-family: 'Papyrus', fantasy, cursive;
     color: #3d6b3d;
+}
+
+#feedbackImage img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+#feedbackImage p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: Georgia, serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2e5c2e;
+    margin-top: 10px;
+    text-shadow: 1px 1px 2px #ccc;
 }
 
 /* Process Feedback Page */

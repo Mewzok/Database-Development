@@ -61,5 +61,17 @@
             </footer>
             <?php
         }
+
+        public function DisplayFeedback($name, $color, $arm, $leg) {
+            ?>
+            <form action="fp_feedbackform.php" method="post">
+                <input type="hidden" name="frogname" value="<?php echo htmlspecialchars($name); ?>">
+                <input type="hidden" name="frogcolor" value="<?php echo htmlspecialchars($color); ?>">
+                <input type="hidden" name="frogarm" value="<?php echo htmlspecialchars($arm); ?>">
+                <input type="hidden" name="frogleg" value="<?php echo htmlspecialchars($leg); ?>">
+                <button class="frog-feedback-button" type="submit">🐸 Frog Feedback</button>
+            </form>
+            <?php
+        }
     }
 ?>

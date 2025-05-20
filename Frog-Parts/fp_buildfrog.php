@@ -84,6 +84,7 @@
       ?>
     </form>
     </div>
+    <?php $buildPage->DisplayFeedback($name, $color, $arm, $leg); ?>
     <?php $buildPage->DisplayFooter(); ?>
   </body>
 </html>

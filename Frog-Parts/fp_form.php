@@ -146,7 +146,6 @@
         })
       </script>
     <!-- end of check for duplicate name ------------------------------>
-     <a href="fp_feedbackform.php" class="frog-feedback-button">🐸 Frog Feedback</a>
-     <?php $formPage->DisplayFooter() ?>
+     <?php $formPage->DisplayFooter(); ?>
   </body>
 </html>
