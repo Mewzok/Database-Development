@@ -1,0 +1,33 @@
+-- create tables
+create table Frogs 
+( FrogID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Name CHAR(50) NOT NULL,
+Color ENUM('GREEN', 'RED', 'BLUE'),
+NumberOfLegs INT,
+Price FLOAT(6,2)
+);
+
+create table Customers
+( CustomerID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Name CHAR(50) NOT NULL,
+Address CHAR(100) NOT NULL,
+City CHAR(30) NOT NULL
+);
+
+create table Orders
+( OrderID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CustomerID INT UNSIGNED NOT NULL,
+Amount FLOAT(6,2),
+Date DATE NOT NULL,
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+create table Order_Items
+( OrderID INT UNSIGNED NOT NULL,
+FrogID INT UNSIGNED NOT NULL,
+Quantity TINYINT UNSIGNED,
+
+PRIMARY KEY (OrderID, FrogID),
+FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+FOREIGN KEY (FrogID) REFERENCES Frogs(FrogID)
+);
