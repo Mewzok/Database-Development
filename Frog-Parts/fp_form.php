@@ -27,6 +27,7 @@
     <!-- put all saved frog names in an array to check for already taken name ----------->
      <?php
      $frogList = [];
+     try {
      @$db = new mysqli('localhost', 'frogparts', 'frogparts123', 'frogparts');
      if(mysqli_connect_errno()) {
        echo '<p>Error: Could not connect to database.<br />
@@ -48,6 +49,9 @@
           'leg' => $leg
         ];
       }
+    } catch (Exception $e) {
+      echo "Error: Could not connect to database.";
+    }
      ?>
     <!-- end of array of names creation -------------------------------------------------->
 
