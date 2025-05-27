@@ -11,7 +11,7 @@
       Frog Parts home/form page
       Author: Jonathan Kinney
       Date Created:  05/1/2025
-      Date Modified: 05/20/2025
+      Date Modified: 05/27/2025
 
       Filename: fp_form.html
     -->
@@ -25,7 +25,25 @@
   <body>
   <?php $formPage->DisplayHeader(); ?>
     <!-- put all saved frog names in an array to check for already taken name ----------->
-     <?php $frogList = loadFrogList("frogs.txt"); ?>
+     <?php
+     $frogList = [];
+     @$db = new mysqli('localhost', 'frogparts', 'frogparts123', 'frogparts');
+     if(mysqli_connect_errno()) {
+       echo '<p>Error: Could not connect to database.<br />
+         Please try again later.</p>';
+       exit;
+     }
+
+     $query = "SELECT FrogName FROM Frogs";
+     $stmt = $db->prepare($query);
+     $stmt->execute();
+
+     $stmt->bind_result($frogName);
+
+      while($stmt->fetch()) {
+        $frogList[] = $frogName;
+      }
+     ?>
     <!-- end of array of names creation -------------------------------------------------->
 
     <div>
@@ -74,24 +92,24 @@
     </table>
     </form>
 
-    <!-- handle loading ------------------------------------------------------------->
-     <?php if(count($frogList) > 0) usort($frogList, 'compareName'); ?>
+    <!-- load dropdown -->
     <form id="loadForm">
     <table>
-      <!-- load dropdown -->
       <tr>
         <td colspan="2">
           <select name="loadfrogname" id="loadDropdown" 
             <?php if(count($frogList) === 0) echo 'disabled'; ?>>
+            <?php usort($frogList, 'compareName'); ?>
             <option value="">-- Select Frog --</option>
             <?php foreach ($frogList as $frog): ?>
-              <option value="<?php echo htmlspecialchars(json_encode($frog)); ?>">
-                <?php echo htmlspecialchars($frog[3]); ?>
+              <option value="<?php echo htmlspecialchars($frog); ?>">
+                <?php echo htmlspecialchars($frog); ?>
             </option>
             <?php endforeach; ?>
           </select>
         </td>
       </tr>
+      
       <!-- load button -->
       <tr>
         <td colspan="2">
