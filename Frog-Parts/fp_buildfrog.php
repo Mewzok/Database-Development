@@ -18,32 +18,27 @@
 
   // handle saving
   if($saved) {
-    // open file for appending
-    try {
-      $fp = @fopen("frogs.txt", 'a');
+    @$db = new mysqli('localhost', 'frogparts', 'frogparts123', 'frogparts');
 
-      if(!($fp)) {
-        throw new FileOpenException();
-      }
-
-      if(!flock($fp, LOCK_EX)) {
-        throw new FileLockException();
-      }
-
-      if(!fputcsv($fp, [$color, $arm, $leg, $name])) {
-        throw new FileWriteException();
-      }
-
-      flock($fp, LOCK_UN);
-      fclose($fp);
-      $saved = true;
-    } catch(FileOpenException $foe) {
-      echo $foe->__toString();
-    } catch(FileLockException $fle) {
-      echo $fle->__toString();
-    } catch(FileWriteException $fwe) {
-      echo $fwe->__toString();
+    if(mysqli_connect_errno()) {
+      echo "<p>Error: Could not connect to database.<br />
+        Please try again later.</p>";
+      exit;
     }
+
+    $query = "INSERT INTO Frogs VALUES (?, ?, ?, ?)";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('ssss', $name, $color, $arm, $leg);
+    $stmt->execute();
+
+    if($stmt->affected_rows > 0) {
+      echo "<p>Frog saved.</p>";
+    } else {
+      echo "<p>An error has occured.<br />
+        Frog could not be saved.</p>";
+    }
+
+    $db->close();
   }
 ?>
 <!DOCTYPE html>
