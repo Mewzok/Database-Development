@@ -13,9 +13,9 @@
     }
 
     function compareName($x, $y) {
-        if($x == $y) {
+        if($x['name'] == $y['name']) {
         return 0;
-        } else if($x < $y) {
+        } else if($x['name'] < $y['name']) {
         return -1;
         } else {
         return 1;

@@ -34,14 +34,19 @@
        exit;
      }
 
-     $query = "SELECT FrogName FROM Frogs";
+     $query = "SELECT FrogName, Color, Arm, Leg FROM Frogs";
      $stmt = $db->prepare($query);
      $stmt->execute();
 
-     $stmt->bind_result($frogName);
+     $stmt->bind_result($frogName, $color, $arm, $leg);
 
       while($stmt->fetch()) {
-        $frogList[] = $frogName;
+        $frogList[] = [
+          'name' => $frogName,
+          'color' => $color,
+          'arm' => $arm,
+          'leg' => $leg
+        ];
       }
      ?>
     <!-- end of array of names creation -------------------------------------------------->
@@ -102,8 +107,8 @@
             <?php usort($frogList, 'compareName'); ?>
             <option value="">-- Select Frog --</option>
             <?php foreach ($frogList as $frog): ?>
-              <option value="<?php echo htmlspecialchars($frog); ?>">
-                <?php echo htmlspecialchars($frog); ?>
+              <option value='<?php echo json_encode($frog, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>'>
+                <?php echo htmlspecialchars($frog['name']); ?>
             </option>
             <?php endforeach; ?>
           </select>
@@ -135,10 +140,10 @@
 
         const frog = JSON.parse(selected);
 
-        document.querySelector('select[name="frogcolor"]').value = frog[0];
-        document.querySelector('select[name="frogarm"]').value = frog[1];
-        document.querySelector('select[name="frogleg"]').value = frog[2];
-        document.querySelector('input[name="frogname"]').value = frog[3];
+        document.querySelector('select[name="frogcolor"]').value = frog['color'];
+        document.querySelector('select[name="frogarm"]').value = frog['arm'];
+        document.querySelector('select[name="frogleg"]').value = frog['leg'];
+        document.querySelector('input[name="frogname"]').value = frog['name'];
 
 
         loadedInput.type = "hidden";
