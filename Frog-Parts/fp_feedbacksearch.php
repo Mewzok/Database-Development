@@ -1,23 +1,43 @@
 <?php
+    require("fp_page.php");  
+
+    $formPage = new Page();
+?>
+<?php
     $results = [];
 
     if($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['search'])) {
         $searchKey = trim($_POST['search']);
+        $likeTerm = "%".$searchKey."%";
 
-        if(!file_exists("frogfeedback.txt")) {
-            die("Unable to open feedback file or file does not exist.");
+        $db = new mysqli('localhost', 'frogparts', 'frogparts123', 'frogparts');
+        if(mysqli_connect_errno()) {
+            echo '<p>Error: Could not connect to database.<br />
+                Please try again later.</p';
+            exit;
         }
 
-        $fp = @fopen("frogfeedback.txt", "r");
+        $query = "SELECT FrogName, Email, Name, Message FROM Feedback WHERE FrogName LIKE ? 
+        OR Email LIKE ? OR Name LIKE ? OR Message LIKE ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param('ssss', $likeTerm, $likeTerm, $likeTerm, $likeTerm);
+        $stmt->execute();
+        $stmt->store_result();
 
-        if($fp) {
-            while(($line = fgets($fp)) !== false) {
-                if(preg_match("/$searchKey/i", $line)) {
-                    $results[] = htmlspecialchars($line);
-                }
+        $stmt->bind_result($frogName, $email, $name, $message);
+
+        if($stmt->num_rows > 0) {
+            while($stmt->fetch()) {
+                $results[] = "<div class='result'>
+                <h3>$frogName</h3>
+                <p><strong>From:</strong> $name ($email)</p>
+                <p><strong>Feedback:</strong><br />".nl2br(htmlspecialchars($message))."</p>
+            </div>";
             }
-            fclose($fp);
         }
+
+        $stmt->close();
+        $db->close();
     }
 ?>
 
@@ -28,7 +48,7 @@
         <link href="fp_styles.css" rel="stylesheet" />
     </head>
     <body class="feedback-search-body">
-        <?php include('fp_header.php'); ?>
+    <?php $formPage->DisplayHeader(); ?>
         <form action="" method="post">
             <div class="feedback-search-div">
                 <p><strong>Enter search term:</strong><br />
@@ -40,11 +60,11 @@
         <?php if(!empty($results)): ?>
             <div class="search-results-div">
                 <h2>Search Results:</h2>
-                <p><?php echo implode("", $results); ?> </p>
+                <p><?php echo implode("\n", $results); ?> </p>
             </div>
         <?php elseif($_SERVER["REQUEST_METHOD"] === "POST"): ?>
             <p id="searchNotFound">No matches found.</p>
         <?php endif; ?>
-        <?php include('fp_footer.php'); ?>
+        <?php $formPage->DisplayFooter(); ?>
     </body>
 </html>
